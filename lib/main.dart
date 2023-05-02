@@ -1,23 +1,50 @@
+
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
-  runApp(
+  return runApp(
     MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          backgroundColor: Colors.red,
-          title: Text('Dice'),
+          title: Text('Dicee'),
+          backgroundColor: Color.fromRGBO(15, 157, 88, 1),
         ),
-        body: MyApp(),
+        body: Dice(),
       ),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class Dice extends StatefulWidget {
+  @override
+  _DiceState createState() => _DiceState();
+}
+
+class _DiceState extends State<Dice> {
+  int dice_no = 1;
+  void update() {
+    setState(() {
+      //Random.nextInt(n) returns random integer from 0 to n-1
+      dice_no = Random().nextInt(6) + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: TextButton(
+            child: Image.asset('images/dice$dice_no.png'),
+            onPressed: () {
+              update();
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
